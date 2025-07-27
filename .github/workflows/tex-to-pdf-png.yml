@@ -27,7 +27,8 @@ jobs:
       - name: Convert .pdf to high-quality .png with white background
         run: |
           find . -name '*.pdf' -print0 | while IFS= read -r -d '' file; do
-            convert -density 300 "$file" -background white -alpha remove "${file%.pdf}.png";
+            # convert -density 300 "$file" -background white -alpha remove "${file%.pdf}.png";
+              convert -density 300 "${file}[0]" -background white -alpha remove "${file%.pdf}.png"
           done
 
       - name: Commit and push results
