@@ -16,9 +16,7 @@ jobs:
       - name: Set up TeXLive, Typst and ImageMagick
         run: |
           sudo apt-get update
-          sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra imagemagick
-          curl -sSf https://typst.app/install.sh | sh
-          export PATH="$HOME/.typst/bin:$PATH"
+          sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra imagemagick docker.io
 
       - name: Compile .tex files to .pdf
         run: |
@@ -26,11 +24,10 @@ jobs:
             pdflatex -interaction=nonstopmode "$file";
           done
 
-      - name: Compile .typ files to PDF
+      - name: Compile .typ files to PDF using Docker
         run: |
-          export PATH="$HOME/.typst/bin:$PATH"
           find . -name '*.typ' -print0 | while IFS= read -r -d '' file; do
-            typst compile "$file" "${file%.typ}.pdf";
+            docker run --rm -v "$PWD":/workdir -w /workdir ghcr.io/typst/typst:latest typst compile "$file" "${file%.typ}.pdf"
           done
 
       - name: Convert .pdf to high-quality .png with white background
