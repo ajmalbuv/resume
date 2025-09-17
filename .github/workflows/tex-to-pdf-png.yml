@@ -27,7 +27,7 @@ jobs:
       - name: Compile .typ files to PDF using Docker
         run: |
           find . -name '*.typ' -print0 | while IFS= read -r -d '' file; do
-            docker run --rm -v "$PWD":/workdir -w /workdir ghcr.io/typst/typst:latest typst compile "$file" "${file%.typ}.pdf"
+            docker run --rm -v "$PWD":/workdir -w /workdir ghcr.io/typst/typst:latest compile "$file" "${file%.typ}.pdf"
           done
 
       - name: Convert .pdf to high-quality .png with white background
