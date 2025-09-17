@@ -1,4 +1,4 @@
-name: Compile LaTeX and Convert to PNG
+name: Compile LaTeX & Typst and Convert to PNG
 
 on:
   push:
@@ -13,15 +13,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up TeX Live and ImageMagick
+      - name: Set up TeXLive, Typst and ImageMagick
         run: |
           sudo apt-get update
           sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra imagemagick
+          curl -sSf https://typst.app/install.sh | sh
+          export PATH="$HOME/.typst/bin:$PATH"
 
       - name: Compile .tex files to .pdf
         run: |
           find . -name '*.tex' -print0 | while IFS= read -r -d '' file; do
             pdflatex -interaction=nonstopmode "$file";
+          done
+
+      - name: Compile .typ files to PDF
+        run: |
+          export PATH="$HOME/.typst/bin:$PATH"
+          find . -name '*.typ' -print0 | while IFS= read -r -d '' file; do
+            typst compile "$file" "${file%.typ}.pdf";
           done
 
       - name: Convert .pdf to high-quality .png with white background
