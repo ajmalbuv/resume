@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+    paths:
+      - "**/*.tex"
+      - "**/*.typ"
 
 jobs:
   compile-and-convert:
@@ -13,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up TeXLive, Typst and ImageMagick
+      - name: Set up TeX Live and ImageMagick
         run: |
           sudo apt-get update
           sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra imagemagick
@@ -44,5 +47,5 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add '*.pdf' '*.png'
-          git commit -m "Add compiled PDFs and PNGs"
-          git push
+          git commit -m "Add compiled PDFs and PNGs" || echo "No changes to commit"
+          git push || echo "Nothing to push"
