@@ -40,7 +40,7 @@
 )
 
 #set text(
-  font: "Liberation Sans",
+  font: "FiraCode Nerd Font Propo Ret",
   size: 11pt,
   hyphenate: false,
 )
@@ -63,7 +63,7 @@
 ]
 
 #align(center)[
-    #text(size: 24pt, weight: "bold", font: "Liberation Sans")[
+    #text(size: 24pt, weight: "bold", font: "FiraCode Nerd Font Propo Ret")[
         #smallcaps[#link("https://ajmalbuv.github.io")[Ajmal Basheer]]
       ]
     #v(1pt)
@@ -87,6 +87,7 @@
   "Bachelor of Computer Applications",
   "Aug. 2021 -- July 2024",
 )
+
 #resumeSubheading(
   "MIC Higher Secondary School",
   "Malappuram, Kerala",

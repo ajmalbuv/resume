@@ -27,6 +27,9 @@ jobs:
             pdflatex -interaction=nonstopmode "$file";
           done
 
+      - name: check fonts in docker image
+        run: docker run --rm -v "$PWD":/workdir -w /workdir ghcr.io/typst/typst:latest fonts
+
       - name: Compile .typ files to PDF using Docker
         run: |
           find . -name '*.typ' -print0 | while IFS= read -r -d '' file; do
