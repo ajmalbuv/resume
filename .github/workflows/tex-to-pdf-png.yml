@@ -19,14 +19,14 @@ jobs:
       - name: Set up TeX Live and ImageMagick
         run: |
           sudo apt-get update
-          sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra imagemagick
+          sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra imagemagick la
 
       - name: Format source files
         run: |
           # Format .tex files (latexindent is part of texlive-latex-extra)
-          find . -name '*.tex' -print0 | while IFS= read -r -d '' file; do
-            latexindent -w "$file"
-          done
+          # find . -name '*.tex' -print0 | while IFS= read -r -d '' file; do
+          #   latexindent -w "$file"
+          # done
           # Format .typ files
           find . -name '*.typ' -print0 | while IFS= read -r -d '' file; do
             docker run --rm -v "$PWD":/workdir -w /workdir ghcr.io/typst/typst:latest fmt "$file"
