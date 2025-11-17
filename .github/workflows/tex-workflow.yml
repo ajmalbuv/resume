@@ -1,0 +1,58 @@
+name: LaTeX Compilation
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "**/*.tex"
+  workflow_dispatch:
+
+jobs:
+  compile-tex:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up TeX Live and ImageMagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-extra imagemagick
+
+      # - name: Format .tex files
+      #   run: |
+      #     find . -name '*.tex' -print0 | while IFS= read -r -d '' file; do
+      #       latexindent -w "$file"
+      #     done
+
+      - name: Compile .tex files to .pdf
+        run: |
+          find . -name '*.tex' -print0 | while IFS= read -r -d '' file; do
+            latexmk -pdf -interaction=nonstopmode "$file"
+          done
+
+      - name: Convert .pdf to .png
+        run: |
+          find . -name '*.pdf' -print0 | while IFS= read -r -d '' file; do
+            convert -density 300 "${file}[0]" -background white -alpha remove "${file%.pdf}.png"
+          done
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Format and compile LaTeX files"
+          commit_user_name: GitHub Actions
+          commit_user_email: actions@github.com
+          commit_author: Author <actions@github.com>
+          file_pattern: "**/*.tex **/*.pdf **/*.png"
+
+      # --- Alternative: Upload as artifacts instead of committing ---
+      # - name: Upload PDF and PNG artifacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: compiled-resume
+      #     path: |
+      #       **/*.pdf
+      #       **/*.png

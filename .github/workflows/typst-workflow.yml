@@ -1,0 +1,56 @@
+name: Typst Compilation
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "**/*.typ"
+  workflow_dispatch:
+
+jobs:
+  compile-typst:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # - name: Format .typ files
+      #   run: |
+      #     find . -name '*.typ' -print0 | while IFS= read -r -d '' file; do
+      #       docker run --rm -v "$PWD":/workdir -w /workdir ghcr.io/typst/typst:latest fmt "$file"
+      #     done
+
+      - name: Compile .typ files to PDF
+        run: |
+          find . -name '*.typ' -print0 | while IFS= read -r -d '' file; do
+            docker run --rm -v "$PWD":/workdir -w /workdir ghcr.io/typst/typst:latest compile "$file" "${file%.typ}.pdf"
+          done
+
+      - name: Install ImageMagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+
+      - name: Convert .pdf to .png
+        run: |
+          find . -name '*.pdf' -print0 | while IFS= read -r -d '' file; do
+            convert -density 300 "${file}[0]" -background white -alpha remove "${file%.pdf}.png"
+          done
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Format and compile Typst files"
+          commit_user_name: GitHub Actions
+          commit_user_email: actions@github.com
+          commit_author: Author <actions@github.com>
+          file_pattern: "**/*.typ **/*.pdf **/*.png"
+
+      # --- Alternative: Upload as artifacts instead of committing ---
+      # - name: Upload PDF and PNG artifacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: compiled-resume
+      #     path: |
+      #       **/*.pdf
+      #       **/*.png
