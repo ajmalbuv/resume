@@ -1,23 +1,17 @@
-// The font families used in this resume.
 #let primary-font = "Arial"
 #let secondary-font = "Arial"
-
-// The primary color used in this resume.
 #let primary-color = rgb("#222222")
 
-// Set the document's basic properties.
 #set document(
   title: "Ajmal Basheer's Resume",
   author: "Ajmal Basheer",
 )
 
-// Set the page properties.
 #set page(
   paper: "a4",
   margin: (x: 1.2cm, y: 1cm),
 )
 
-// Configure paragraph properties.
 #set par(
   justify: true,
   leading: 0.65em,
@@ -25,7 +19,6 @@
   hanging-indent: 0pt,
 )
 
-// Configure text properties.
 #set text(
   fill: primary-color,
   font: secondary-font,
@@ -34,54 +27,42 @@
   fallback: true,
 )
 
-// Configure heading properties.
 #show heading: set text(
   font: primary-font,
   weight: "bold",
 )
 
-// Define a custom section heading.
 #let section(body) = {
-  // Add vertical spacing before the section.
   v(1.2em, weak: true)
 
-  // Set the text properties for the section heading.
   text(
     size: 1.2em,
     weight: "bold",
     body,
   )
 
-  // Add a line below the section heading.
   line(
     length: 100%,
     stroke: 0.5pt,
   )
-
-  // Add vertical spacing after the section heading.
   v(0.8em, weak: true)
 }
 
-// Define a custom function for the resume header.
 #let header(name, phone, email, linkedin, github, photo) = {
-  // Create a grid with two columns.
   grid(
     columns: (auto, 1fr),
     gutter: 1cm,
-    // The first column contains the photo.
     image(
       photo,
       width: 1.5cm,
       height: 1.5cm,
       fit: "cover",
     ),
-    // The second column contains the contact information.
     align(
       center,
       stack(
         dir: ttb,
         spacing: 0.5em,
-        // The name is a link to the personal website.
         link(
           "https://ajmalbuv.github.io",
           text(
@@ -91,7 +72,6 @@
             name,
           ),
         ),
-        // The contact information is a set of links.
         stack(
           dir: ltr,
           spacing: 0.5em,
@@ -108,18 +88,14 @@
   )
 }
 
-// Define a custom function for a resume subheading.
 #let subheading(title, subtitle, location, date) = {
-  // Create a grid with two columns.
   grid(
     columns: (1fr, auto),
-    // The first column contains the title and subtitle.
     stack(
       dir: ttb,
       text(weight: "bold", title),
       text(style: "italic", subtitle),
     ),
-    // The second column contains the location and date.
     align(
       right,
       stack(
@@ -131,12 +107,9 @@
   )
 }
 
-// Define a custom function for a project heading.
 #let project-heading(title, url, languages, date) = {
-  // Create a grid with two columns.
   grid(
     columns: (1fr, auto),
-    // The first column contains the title, link, and languages.
     stack(
       dir: ltr,
       spacing: 0.5em,
@@ -144,7 +117,6 @@
       "|",
       text(style: "italic", languages),
     ),
-    // The second column contains the date.
     align(
       right,
       text(weight: "bold", date),
@@ -152,19 +124,17 @@
   )
 }
 
-// Define a custom function for a list of items.
 #let item-list(..items) = {
-  // Create a list with the given items.
   list(
-    ..items.pos().map(item => {
-      // Add vertical spacing between items.
-      v(0.5em, weak: true)
-      item
-    }),
+    ..items
+      .pos()
+      .map(item => {
+        v(0.5em, weak: true)
+        item
+      }),
   )
 }
 
-// Create the header.
 #header(
   "AJMAL BASHEER",
   "+91 9496444520",
@@ -174,11 +144,9 @@
   "photo.jpg",
 )
 
-// Create the summary section.
 #section("Summary")
 Full-stack developer with expertise in Python, Django, PostgreSQL, and Flutter. Experienced in designing and deploying scalable applications with optimized performance and security. Proven ability to enhance system efficiency, streamline development workflows, and contribute to high-availability cloud deployments. Passionate about delivering high-quality software solutions in dynamic IT environments.
 
-// Create the education section.
 #section("Education")
 #subheading(
   "Krupanidhi Degree College",
@@ -193,7 +161,6 @@ Full-stack developer with expertise in Python, Django, PostgreSQL, and Flutter. 
   "June 2017 -- March 2019",
 )
 
-// Create the experience section.
 #section("Experience")
 #subheading(
   "WIMD Technologies Pvt Ltd",
@@ -223,7 +190,6 @@ Full-stack developer with expertise in Python, Django, PostgreSQL, and Flutter. 
   [*Agile Development and Collaboration:* Worked in an Agile environment, participating in sprint planning, peer code reviews, and cross-functional team collaborations to deliver feature-rich applications on time.],
 )
 
-// Create the projects section.
 #section("Projects")
 #project-heading(
   "EduManage",
@@ -238,7 +204,6 @@ Full-stack developer with expertise in Python, Django, PostgreSQL, and Flutter. 
   [*Collaborative Version Control:* Leveraged GitHub for collaborative development, enhancing workflow efficiency and documentation for seamless project management.],
 )
 
-// Create the skills and competencies section.
 #section("Skills & Competencies")
 #item-list(
   [*Full Stack Development*: Python, Django, JavaScript, React.js, Node.js, REST APIs],
