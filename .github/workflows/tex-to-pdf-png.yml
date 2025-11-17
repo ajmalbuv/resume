@@ -7,6 +7,8 @@ on:
     paths:
       - "**/*.tex"
       - "**/*.typ"
+      - ".github/workflows/tex-to-pdf-png.yml "
+  workflow_dispatch:
 
 jobs:
   compile-and-convert:
