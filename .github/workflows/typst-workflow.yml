@@ -37,6 +37,10 @@ jobs:
             convert -density 300 "${file}[0]" -background white -alpha remove "${file%.pdf}.png"
           done
 
+      - name: Check for file changes
+        id: git-check
+        run: git status
+
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:

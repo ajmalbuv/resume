@@ -9,7 +9,7 @@
 
 #set page(
   paper: "a4",
-  margin: (x: 1cm, y: 1cm),
+  margin: (x: 1.5cm, y: 1cm),
 )
 
 #set par(
