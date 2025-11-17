@@ -9,8 +9,6 @@
 
 #set page(
   paper: "a4",
-
-
   margin: (x: 1.2cm, y: 1cm),
 )
 
@@ -18,7 +16,7 @@
   justify: true,
   leading: 0.65em,
   first-line-indent: 0pt,
-  hanging-indent: 0pt
+  hanging-indent: 0pt,
 )
 
 #set text(
@@ -29,7 +27,7 @@
   fallback: true,
 )
 
-#show heading: set text(font: primary-font,weight: "bold")
+#show heading: set text(font: primary-font, weight: "bold")
 
 #let section(body) = {
   v(1.2em, weak: true)
