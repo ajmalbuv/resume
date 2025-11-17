@@ -48,7 +48,7 @@ jobs:
           commit_user_name: GitHub Actions
           commit_user_email: actions@github.com
           commit_author: Author <actions@github.com>
-          file_pattern: "**/*.typ **/*.pdf **/*.png"
+          file_pattern: "*.typ *.pdf *.png"
 
       # --- Alternative: Upload as artifacts instead of committing ---
       # - name: Upload PDF and PNG artifacts
