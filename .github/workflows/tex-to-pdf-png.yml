@@ -29,9 +29,9 @@ jobs:
           #   latexindent -w "$file"
           # done
           # Format .typ files
-          find . -name '*.typ' -print0 | while IFS= read -r -d '' file; do
-            docker run --rm -v "$PWD":/workdir -w /workdir ghcr.io/typst/typst:latest fmt "$file"
-          done
+          # find . -name '*.typ' -print0 | while IFS= read -r -d '' file; do
+          #   docker run --rm -v "$PWD":/workdir -w /workdir ghcr.io/typst/typst:latest fmt "$file"
+          # done
 
       - name: Compile .tex files to .pdf
         run: |
