@@ -19,7 +19,7 @@ jobs:
       - name: Set up TeX Live and ImageMagick
         run: |
           sudo apt-get update
-          sudo apt-get install -y texlive-latex-extra imagemagick latexmk
+          sudo apt-get install -y texlive-latex-extra imagemagick latexmk texlive-fonts-extra
 
       # - name: Format .tex files
       #   run: |
