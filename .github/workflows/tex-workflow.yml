@@ -1,4 +1,5 @@
 name: LaTeX Compilation
+
 on:
   push:
     branches:
@@ -44,6 +45,7 @@ jobs:
 
       - name: Determine files to compile
         id: files
+        shell: bash
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.rebuild_all }}" == "true" ]] || [[ "${{ steps.changed-files.outputs.photo_any_changed }}" == "true" ]]; then
             echo "Photo changed or manual full rebuild. Compiling all root LaTeX files..."
@@ -67,6 +69,7 @@ jobs:
 
       - name: Compile LaTeX files
         if: steps.files.outputs.any == 'true'
+        shell: bash
         run: |
           for file in ${{ steps.files.outputs.all }}; do
             [[ "$file" != *.tex ]] && continue

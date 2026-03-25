@@ -1,12 +1,12 @@
-name: 'PDF to PNG'
-description: 'Converts PDF files to PNG using pdftocairo'
+name: "PDF to PNG"
+description: "Converts PDF files to PNG using pdftocairo"
 inputs:
   files:
-    description: 'Space-separated list of PDF files to convert'
+    description: "Space-separated list of PDF files to convert"
     required: true
   resolution:
-    description: 'Resolution in DPI'
-    default: '300'
+    description: "Resolution in DPI"
+    default: "300"
 runs:
   using: "composite"
   steps:
