@@ -8,35 +8,27 @@ on:
       - "**/*.tex"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  compile-tex:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up TeX Live and ImageMagick
+      - name: Compile LaTeX files
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: "**/*.tex"
+          args: -pdf -interaction=nonstopmode -shell-escape
+
+      - name: Convert to PNG
         run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-latex-extra imagemagick latexmk texlive-fonts-extra
-
-      # - name: Format .tex files
-      #   run: |
-      #     find . -name '*.tex' -print0 | while IFS= read -r -d '' file; do
-      #       latexindent -w "$file"
-      #     done
-
-      - name: Compile .tex files to .pdf
-        run: |
-          find . -name '*.tex' -print0 | while IFS= read -r -d '' file; do
-            latexmk -pdf -interaction=nonstopmode "$file"
-          done
-
-      - name: Convert .pdf to .png
-        run: |
-          find . -name '*.pdf' -print0 | while IFS= read -r -d '' file; do
-            convert -density 300 "${file}[0]" -background white -alpha remove "${file%.pdf}.png"
+          sudo apt-get update && sudo apt-get install -y poppler-utils
+          find . -name "*.pdf" -not -name "typst-*" -print0 | while IFS= read -r -d '' pdf; do
+            echo "Converting $pdf to PNG..."
+            pdftocairo -png -singlefile -transp -r 300 "$pdf" "${pdf%.pdf}"
           done
 
       - name: Commit changes
@@ -46,13 +38,4 @@ jobs:
           commit_user_name: GitHub Actions
           commit_user_email: actions@github.com
           commit_author: Author <actions@github.com>
-          file_pattern: "*.tex *.pdf *.png"
-
-      # --- Alternative: Upload as artifacts instead of committing ---
-      # - name: Upload PDF and PNG artifacts
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: compiled-resume
-      #     path: |
-      #       **/*.pdf
-      #       **/*.png
+          file_pattern: "*.pdf *.png"

@@ -8,38 +8,31 @@ on:
       - "**/*.typ"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  compile-typst:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # - name: Format .typ files
-      #   run: |
-      #     find . -name '*.typ' -print0 | while IFS= read -r -d '' file; do
-      #       docker run --rm -v "$PWD":/workdir -w /workdir ghcr.io/typst/typst:latest fmt "$file"
-      #     done
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v3
 
-      - name: Compile .typ files to PDF
+      - name: Compile and Convert
         run: |
-          find . -name '*.typ' -print0 | while IFS= read -r -d '' file; do
-            docker run --rm -v "$PWD":/workdir -w /workdir ghcr.io/typst/typst:latest compile "$file" "${file%.typ}.pdf"
+          sudo apt-get update && sudo apt-get install -y poppler-utils
+          find . -name "*.typ" -print0 | while IFS= read -r -d '' file; do
+            pdf="${file%.typ}.pdf"
+            png="${file%.typ}.png"
+            
+            echo "Compiling $file..."
+            typst compile "$file" "$pdf"
+            
+            echo "Converting $pdf to $png..."
+            pdftocairo -png -singlefile -transp -r 300 "$pdf" "${pdf%.pdf}"
           done
-
-      - name: Install ImageMagick
-        run: sudo apt-get update && sudo apt-get install -y imagemagick
-
-      - name: Convert .pdf to .png
-        run: |
-          find . -name '*.pdf' -print0 | while IFS= read -r -d '' file; do
-            convert -density 300 "${file}[0]" -background white -alpha remove "${file%.pdf}.png"
-          done
-
-      - name: Check for file changes
-        id: git-check
-        run: git status
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -48,13 +41,4 @@ jobs:
           commit_user_name: GitHub Actions
           commit_user_email: actions@github.com
           commit_author: Author <actions@github.com>
-          file_pattern: "*.typ *.pdf *.png"
-
-      # --- Alternative: Upload as artifacts instead of committing ---
-      # - name: Upload PDF and PNG artifacts
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: compiled-resume
-      #     path: |
-      #       **/*.pdf
-      #       **/*.png
+          file_pattern: "*.pdf *.png"
