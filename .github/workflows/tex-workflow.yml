@@ -22,8 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     container: ghcr.io/xu-cheng/texlive-full:latest
     steps:
-      - name: Install Git LFS
-        run: apk add --no-cache git-lfs
+      - name: Install Git and Dependencies
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          apk add --no-cache git git-lfs bash
 
       - uses: actions/checkout@v4
         with:
