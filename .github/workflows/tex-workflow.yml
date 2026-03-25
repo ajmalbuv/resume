@@ -22,6 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     container: ghcr.io/xu-cheng/texlive-full:latest
     steps:
+      - name: Install Git LFS
+        run: apt-get update && apt-get install -y git-lfs
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
