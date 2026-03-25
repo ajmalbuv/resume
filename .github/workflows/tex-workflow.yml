@@ -6,7 +6,14 @@ on:
       - master
     paths:
       - "**/*.tex"
+      - "photo.jpg"
   workflow_dispatch:
+    inputs:
+      rebuild_all:
+        description: "Rebuild all files"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -16,20 +23,54 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files_yaml: |
+            photo:
+              - photo.jpg
+            root:
+              - "*.tex"
+
+      - name: Determine files to compile
+        id: files
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.rebuild_all }}" == "true" ]] || [[ "${{ steps.changed-files.outputs.photo_any_changed }}" == "true" ]]; then
+            echo "Photo changed or manual full rebuild. Compiling all root LaTeX files..."
+            FILES=$(find . -maxdepth 1 -name "*.tex" | sed 's|^./||' | xargs)
+          else
+            echo "Source files changed. Compiling only changed files..."
+            FILES="${{ steps.changed-files.outputs.root_all_changed_files }}"
+          fi
+
+          if [[ -z "$FILES" ]]; then
+            echo "any=false" >> $GITHUB_OUTPUT
+          else
+            echo "any=true" >> $GITHUB_OUTPUT
+            echo "raw=$FILES" >> $GITHUB_OUTPUT
+            if [[ $FILES == *" "* ]]; then
+              echo "all={$(echo $FILES | tr ' ' ',')}" >> $GITHUB_OUTPUT
+            else
+              echo "all=$FILES" >> $GITHUB_OUTPUT
+            fi
+          fi
 
       - name: Compile LaTeX files
+        if: steps.files.outputs.any == 'true'
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: "./*.tex"
+          root_file: ${{ steps.files.outputs.all }}
           args: -pdf -interaction=nonstopmode -shell-escape
 
       - name: Convert to PNG
-        run: |
-          sudo apt-get update && sudo apt-get install -y poppler-utils
-          find . -maxdepth 1 -name "*.pdf" -not -name "typst-*" -print0 | while IFS= read -r -d '' pdf; do
-            echo "Converting $pdf to PNG..."
-            pdftocairo -png -singlefile -r 300 "$pdf" "${pdf%.pdf}"
-          done
+        if: steps.files.outputs.any == 'true'
+        uses: ./.github/actions/pdf-to-png
+        with:
+          files: ${{ steps.files.outputs.raw }}
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5

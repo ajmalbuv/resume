@@ -1,12 +1,19 @@
 name: Typst Compilation
-
 on:
   push:
     branches:
       - master
     paths:
       - "**/*.typ"
+      - "lib/**"
+      - "photo.jpg"
   workflow_dispatch:
+    inputs:
+      rebuild_all:
+        description: "Rebuild all files"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -16,23 +23,65 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Setup Typst
         uses: typst-community/setup-typst@v3
 
-      - name: Compile and Convert
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files_yaml: |
+            lib:
+              - lib/**
+            photo:
+              - photo.jpg
+            root:
+              - "*.typ"
+
+      - name: Determine files to compile
+        id: files
         run: |
-          sudo apt-get update && sudo apt-get install -y poppler-utils
-          find . -maxdepth 1 -name "*.typ" -print0 | while IFS= read -r -d '' file; do
-            pdf="${file%.typ}.pdf"
-            png="${file%.typ}.png"
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.rebuild_all }}" == "true" ]] || [[ "${{ steps.changed-files.outputs.lib_any_changed }}" == "true" ]] || [[ "${{ steps.changed-files.outputs.photo_any_changed }}" == "true" ]]; then
+            echo "Lib/Photo changed or manual full rebuild. Recompiling all root Typst files..."
+            FILES=$(find . -maxdepth 1 -name "*.typ" | sed 's|^./||' | xargs)
+          else
+            echo "Source files changed. Compiling only changed files..."
+            FILES="${{ steps.changed-files.outputs.root_all_changed_files }}"
+          fi
+
+          if [[ -z "$FILES" && ("${{ steps.changed-files.outputs.any_changed }}" == "true" || "${{ github.event_name }}" == "workflow_dispatch") ]]; then
+            echo "FILES is empty but rebuild is required. Falling back to all root files..."
+            FILES=$(find . -maxdepth 1 -name "*.typ" | sed 's|^./||' | xargs)
+          fi
+
+          if [[ -z "$FILES" ]]; then
+            echo "any=false" >> $GITHUB_OUTPUT
+          else
+            echo "any=true" >> $GITHUB_OUTPUT
+            echo "all=$FILES" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Compile Typst files
+        if: steps.files.outputs.any == 'true'
+        run: |
+          for file in ${{ steps.files.outputs.all }}; do
+            [[ "$file" != *.typ ]] && continue
+            [[ "$file" == lib/* ]] && continue
+            [[ "$file" == ./* ]] && file="${file#./}"
             
+            pdf="${file%.typ}.pdf"
             echo "Compiling $file..."
             typst compile "$file" "$pdf"
-            
-            echo "Converting $pdf to $png..."
-            pdftocairo -png -singlefile -r 300 "$pdf" "${pdf%.pdf}"
           done
+
+      - name: Convert to PNG
+        if: steps.files.outputs.any == 'true'
+        uses: ./.github/actions/pdf-to-png
+        with:
+          files: ${{ steps.files.outputs.all }}
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
