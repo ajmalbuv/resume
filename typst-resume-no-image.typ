@@ -1,4 +1,4 @@
-#import "lib/icons.typ": icon
+#import "lib/icons.typ": contact-item, icon
 
 #set document(
   title: "Ajmal Basheer's Resume",
@@ -29,13 +29,17 @@
   align(center)[
     #block(text(size: 24pt, weight: "bold")[AJMAL BASHEER])
     #set text(size: 9pt)
-    #icon("phone") #h(1pt) #link("tel:+919496444520")[#underline[+91 9496444520]]
-    #h(5pt) | #h(5pt)
-    #icon("mail") #h(1pt) #link("mailto:ajmalbuv\@gmail.com")[#underline[ajmalbuv\@gmail.com]]
-    #h(5pt) | #h(5pt)
-    #icon("linkedin") #h(1pt) #link("https://linkedin.com/in/ajmalbuv")[#underline[linkedin.com/in/ajmalbuv]]
-    #h(5pt) | #h(5pt)
-    #icon("github") #h(1pt) #link("https://github.com/ajmalbuv")[#underline[github.com/ajmalbuv]]
+    #stack(
+      dir: ltr,
+      spacing: 6pt,
+      contact-item("phone", "tel:+919496444520", "+91 9496444520"),
+      [|],
+      contact-item("mail", "mailto:ajmalbuv@gmail.com", "ajmalbuv@gmail.com"),
+      [|],
+      contact-item("linkedin", "https://linkedin.com/in/ajmalbuv", "linkedin.com/in/ajmalbuv"),
+      [|],
+      contact-item("github", "https://github.com/ajmalbuv", "github.com/ajmalbuv"),
+    )
   ]
 }
 
@@ -63,9 +67,7 @@
 
 #let items(..bodies) = {
   set list(indent: 0.15in, marker: [-])
-  for body in bodies.pos() {
-    list.item(text(size: 10pt)[#body])
-  }
+  bodies.pos().map(body => list.item(text(size: 10pt)[#body])).join()
 }
 
 #header()
