@@ -1,5 +1,4 @@
 name: LaTeX Compilation
-
 on:
   push:
     branches:
@@ -21,10 +20,12 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: ghcr.io/xu-cheng/texlive-full:latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
+          lfs: true
 
       - name: Get changed files
         id: changed-files
@@ -47,30 +48,35 @@ jobs:
             FILES="${{ steps.changed-files.outputs.root_all_changed_files }}"
           fi
 
+          if [[ -z "$FILES" && ("${{ steps.changed-files.outputs.any_changed }}" == "true" || "${{ github.event_name }}" == "workflow_dispatch") ]]; then
+            echo "FILES is empty but rebuild is required. Falling back to all root files..."
+            FILES=$(find . -maxdepth 1 -name "*.tex" | sed 's|^./||' | xargs)
+          fi
+
           if [[ -z "$FILES" ]]; then
             echo "any=false" >> $GITHUB_OUTPUT
           else
             echo "any=true" >> $GITHUB_OUTPUT
-            echo "raw=$FILES" >> $GITHUB_OUTPUT
-            if [[ $FILES == *" "* ]]; then
-              echo "all={$(echo $FILES | tr ' ' ',')}" >> $GITHUB_OUTPUT
-            else
-              echo "all=$FILES" >> $GITHUB_OUTPUT
-            fi
+            echo "all=$FILES" >> $GITHUB_OUTPUT
           fi
 
       - name: Compile LaTeX files
         if: steps.files.outputs.any == 'true'
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: ${{ steps.files.outputs.all }}
-          args: -pdf -interaction=nonstopmode -shell-escape
+        run: |
+          for file in ${{ steps.files.outputs.all }}; do
+            [[ "$file" != *.tex ]] && continue
+            [[ "$file" == */* ]] && continue
+            [[ "$file" == ./* ]] && file="${file#./}"
+
+            echo "Compiling $file..."
+            latexmk -pdf -interaction=nonstopmode -shell-escape "$file"
+          done
 
       - name: Convert to PNG
         if: steps.files.outputs.any == 'true'
         uses: ./.github/actions/pdf-to-png
         with:
-          files: ${{ steps.files.outputs.raw }}
+          files: ${{ steps.files.outputs.all }}
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
