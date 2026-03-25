@@ -20,15 +20,15 @@ jobs:
       - name: Compile LaTeX files
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: "**/*.tex"
+          root_file: "./*.tex"
           args: -pdf -interaction=nonstopmode -shell-escape
 
       - name: Convert to PNG
         run: |
           sudo apt-get update && sudo apt-get install -y poppler-utils
-          find . -name "*.pdf" -not -name "typst-*" -print0 | while IFS= read -r -d '' pdf; do
+          find . -maxdepth 1 -name "*.pdf" -not -name "typst-*" -print0 | while IFS= read -r -d '' pdf; do
             echo "Converting $pdf to PNG..."
-            pdftocairo -png -singlefile -transp -r 300 "$pdf" "${pdf%.pdf}"
+            pdftocairo -png -singlefile -r 300 "$pdf" "${pdf%.pdf}"
           done
 
       - name: Commit changes
