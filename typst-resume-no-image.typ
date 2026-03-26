@@ -8,82 +8,99 @@
 
 #set page(
   paper: "a4",
-  margin: (x: 1.3cm, y: 1cm),
+  margin: (x: 1.25cm, top: 0.7cm, bottom: 0.9cm),
 )
 
 #set par(
   justify: true,
-  leading: 0.65em,
+  leading: 0.54em,
   first-line-indent: 0pt,
   hanging-indent: 0pt,
 )
 
 #set text(
-  font: "Roboto",
+  font: ("Helvetica", "Arial", "Roboto"),
   size: 11pt,
-  fill: rgb("#000000"),
+  fill: rgb("#222222"),
   hyphenate: false,
   fallback: true,
 )
 
+#let commonSize = 9.5pt
 
-// Section formatting
 #show heading.where(level: 1): it => {
   set text(size: 11pt, weight: "bold")
-  upper(it.body)
+  v(4pt)
+  smallcaps(it.body)
+  v(-5pt)
   line(length: 100%, stroke: 0.5pt)
+  v(2pt)
 }
 
 #let header() = {
   align(center)[
-    #block(text(size: 24pt, weight: "bold")[AJMAL BASHEER])
-    #set text(size: 9pt)
+    #set text(font: "Montserrat")
+    #link("https://ajmalbuv.github.io")[
+      #text(size: 20pt, weight: "bold")[#smallcaps("Ajmal Basheer")]]
+    #v(-5pt)
+    #set text(size: commonSize, font: ("Helvetica", "Arial", "Roboto"))
     #stack(
       dir: ltr,
-      spacing: 6pt,
+      spacing: 5pt,
       contact-item("phone", "tel:+919496444520", "+91 9496444520"),
       [|],
       contact-item("mail", "mailto:ajmalbuv@gmail.com", "ajmalbuv@gmail.com"),
       [|],
-      contact-item("linkedin", "https://linkedin.com/in/ajmalbuv", "linkedin.com/in/ajmalbuv"),
+      contact-item(
+        "linkedin",
+        "https://linkedin.com/in/ajmalbuv",
+        "linkedin.com/in/ajmalbuv",
+      ),
       [|],
-      contact-item("github", "https://github.com/ajmalbuv", "github.com/ajmalbuv"),
+      contact-item(
+        "github",
+        "https://github.com/ajmalbuv",
+        "github.com/ajmalbuv",
+      ),
     )
   ]
-}
-
-#let heading(title) = {
-  std.heading(level: 1)[#title]
 }
 
 #let subheading(title, location, subtitle, date) = {
   grid(
     columns: (1fr, auto),
-    row-gutter: 3.5pt,
-    text(weight: "bold")[#title], text(weight: "bold", size: 10pt)[#location],
-    text(style: "italic", size: 10pt)[#subtitle], text(style: "italic", size: 10pt)[#date],
+    row-gutter: 1.5pt,
+    text(weight: "bold")[#title], align(right, text(weight: "bold", size: commonSize)[#location]),
+
+    text(style: "italic", size: commonSize)[#subtitle], align(right, text(style: "italic", size: commonSize)[#date]),
   )
 }
 
 #let project(title, tech, date) = {
   grid(
     columns: (1fr, auto),
-    row-gutter: 3.5pt,
-    stack(dir: ltr, text(weight: "bold", size: 10pt)[#title], [ | ], text(style: "italic", size: 10pt)[#tech]),
-    text(weight: "bold", size: 10pt)[#date],
+    row-gutter: 1.5pt,
+    stack(
+      dir: ltr,
+      spacing: 3pt,
+      text(weight: "bold", size: commonSize)[#title],
+      [ | ],
+      text(style: "italic", size: commonSize)[#tech],
+    ),
+    align(right, text(weight: "bold", size: commonSize)[#date]),
   )
 }
 
 #let items(..bodies) = {
-  set list(indent: 0.15in, marker: [-])
-  bodies.pos().map(body => list.item(text(size: 10pt)[#body])).join()
+  set list(indent: 0.32cm, marker: [–], spacing: 1.5pt)
+  bodies.pos().map(body => list.item(text(size: commonSize)[#body])).join()
 }
 
 #header()
 
-#v(10pt)
+#v(2pt)
 #heading("Summary")
-#block(inset: (left: 0.15in))[
+#block(inset: (left: 0.32cm))[
   #set text(size: 10pt)
   Full-stack developer with expertise in Python, Django, PostgreSQL, and Flutter. Experienced in designing and deploying scalable applications with optimized performance and security. Proven ability to enhance system efficiency, streamline development workflows, and contribute to high-availability cloud deployments. Passionate about delivering high-quality software solutions in dynamic IT environments.
 ]
@@ -146,7 +163,7 @@
 )
 
 #heading("Skills & Competencies")
-#block(inset: (left: 0.15in))[
+#block(inset: (left: 0.35cm))[
   #set text(size: 10pt)
   #stack(
     dir: ttb,
