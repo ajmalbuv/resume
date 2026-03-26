@@ -1,4 +1,5 @@
-#import "lib/icons.typ": contact-item, icon
+#import "lib/icons.typ": icon
+#import "lib/contact.typ": contact-item
 
 #set document(
   title: "Ajmal Basheer's Resume",
@@ -7,7 +8,14 @@
 
 #set page(
   paper: "a4",
-  margin: (x: 0.5in, y: 0.5in),
+  margin: (x: 1.3cm, y: 1cm),
+)
+
+#set par(
+  justify: true,
+  leading: 0.65em,
+  first-line-indent: 0pt,
+  hanging-indent: 0pt,
 )
 
 #set text(
@@ -15,6 +23,7 @@
   size: 11pt,
   fill: rgb("#000000"),
   hyphenate: false,
+  fallback: true,
 )
 
 
