@@ -1,6 +1,20 @@
 #import "lib/icons.typ": icon
 #import "lib/contact.typ": contact-item
 
+// --- Configuration ---
+#let font-body = ("Helvetica", "Arial", "Roboto")
+#let font-header = "Montserrat"
+#let size-name = 20pt
+#let size-section = 11pt
+#let size-body = 11pt
+#let size-small = 9.5pt
+#let margin-x = 1.25cm
+#let margin-top = 0.7cm
+#let margin-bottom = 0.9cm
+#let spacing-item = 5pt
+#let spacing-gutter = 4pt
+#let indent = 0.32cm
+
 #set document(
   title: "Ajmal Basheer's Resume",
   author: "Ajmal Basheer",
@@ -8,7 +22,7 @@
 
 #set page(
   paper: "a4",
-  margin: (x: 1.25cm, top: 0.7cm, bottom: 0.9cm),
+  margin: (x: margin-x, top: margin-top, bottom: margin-bottom),
 )
 
 #set par(
@@ -19,31 +33,29 @@
 )
 
 #set text(
-  font: ("Helvetica", "Arial", "Roboto"),
-  size: 11pt,
+  font: font-body,
+  size: size-body,
   fill: rgb("#222222"),
   hyphenate: false,
   fallback: true,
 )
 
-#let commonSize = 9.5pt
-
 #show heading.where(level: 1): it => {
-  set text(size: 11pt, weight: "bold")
+  set text(size: size-section, weight: "bold")
   v(4pt)
   smallcaps(it.body)
-  v(-5pt)
+  v(-8pt)
   line(length: 100%, stroke: 0.5pt)
   v(2pt)
 }
 
 #let header() = {
   align(center)[
-    #set text(font: "Montserrat")
-    #link("https://ajmalbuv.github.io")[
-      #text(size: 20pt, weight: "bold")[#smallcaps("Ajmal Basheer")]]
-    #v(-5pt)
-    #set text(size: commonSize, font: ("Helvetica", "Arial", "Roboto"))
+    #set text(font: font-header)
+    #link("https://ajmalbuv.pages.dev")[
+      #text(size: size-name, weight: "bold")[#smallcaps("Ajmal Basheer")]]
+    #v(-10pt)
+    #set text(size: size-small, font: font-body)
     #stack(
       dir: ltr,
       spacing: 5pt,
@@ -66,41 +78,44 @@
   ]
 }
 
+#let heading(title) = {
+  std.heading(level: 1)[#title]
+}
+
 #let subheading(title, location, subtitle, date) = {
   grid(
     columns: (1fr, auto),
-    row-gutter: 1.5pt,
-    text(weight: "bold")[#title], align(right, text(weight: "bold", size: commonSize)[#location]),
-
-    text(style: "italic", size: commonSize)[#subtitle], align(right, text(style: "italic", size: commonSize)[#date]),
+    row-gutter: spacing-gutter,
+    text(weight: "bold")[#title], align(right, text(weight: "bold", size: size-small)[#location]),
+    text(style: "italic", size: size-small)[#subtitle], align(right, text(style: "italic", size: size-small)[#date]),
   )
 }
 
 #let project(title, tech, date) = {
   grid(
     columns: (1fr, auto),
-    row-gutter: 1.5pt,
+    row-gutter: spacing-gutter,
     stack(
       dir: ltr,
       spacing: 3pt,
-      text(weight: "bold", size: commonSize)[#title],
+      text(weight: "bold", size: size-small)[#title],
       [ | ],
-      text(style: "italic", size: commonSize)[#tech],
+      text(style: "italic", size: size-small)[#tech],
     ),
-    align(right, text(weight: "bold", size: commonSize)[#date]),
+    align(right, text(weight: "bold", size: size-small)[#date]),
   )
 }
 
 #let items(..bodies) = {
-  set list(indent: 0.32cm, marker: [–], spacing: 1.5pt)
-  bodies.pos().map(body => list.item(text(size: commonSize)[#body])).join()
+  set list(indent: indent, marker: [–], spacing: spacing-item)
+  bodies.pos().map(body => list.item(text(size: size-small)[#body])).join()
 }
 
 #header()
 
 #v(2pt)
 #heading("Summary")
-#block(inset: (left: 0.32cm))[
+#block(inset: (left: indent))[
   #set text(size: 10pt)
   Full-stack developer with expertise in Python, Django, PostgreSQL, and Flutter. Experienced in designing and deploying scalable applications with optimized performance and security. Proven ability to enhance system efficiency, streamline development workflows, and contribute to high-availability cloud deployments. Passionate about delivering high-quality software solutions in dynamic IT environments.
 ]
