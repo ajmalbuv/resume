@@ -40,8 +40,8 @@
     grid(
       columns: (1fr, auto),
       row-gutter: 4pt,
-      text(weight: "bold")[#title], align(right, text(weight: "bold", size: 10pt)[#location]),
-      text(style: "italic", size: 10pt)[#subtitle], align(right, text(style: "italic", size: 10pt)[#date]),
+      text(weight: "bold")[#title], align(right, text(weight: "bold", size: 10pt)[#date]),
+      text(style: "italic", size: 10pt)[#subtitle], align(right, text(style: "italic", size: 10pt)[#location]),
     )
   }
 
@@ -96,16 +96,16 @@
     let name_text = personal.at("name", default: "YOUR NAME")
     let website = personal.at("website", default: none)
     if website != none and website != "" {
-      link(website)[#text(size: 20pt, weight: "bold")[#smallcaps(name_text)]]
+      link(website)[#text(size: 25pt, weight: "bold")[#smallcaps(name_text)]]
     } else {
-      text(size: 20pt, weight: "bold")[#smallcaps(name_text)]
+      text(size: 25pt, weight: "bold")[#smallcaps(name_text)]
     }
   }
 
   if photo != none {
     grid(
       columns: (auto, 1fr),
-      column-gutter: 15pt,
+      column-gutter: 35pt,
       align: (left + horizon, center + horizon),
       box(
         stroke: white + 0.4pt,
@@ -171,7 +171,6 @@
         dir: ttb,
         spacing: 4pt,
         ..skills.pairs().map(((cat, val)) => [*#cat*: #val]),
-      )
-    ]
+      )]
   }
 }
