@@ -1,8 +1,8 @@
 <div align="center">
 
-# 📄 Dynamic Resume Framework
+# 📄 Resume
 
-An engineering-focused typesetting system maintaining visual parity between traditional LaTeX and modern Typst architectures.
+Clean, version-controlled resumes built with LaTeX and Typst.
 
 [![LaTeX](https://img.shields.io/badge/LaTeX-47A141?style=for-the-badge&logo=latex&logoColor=white)](https://www.latex-project.org/)
 [![Typst](https://img.shields.io/badge/Typst-239DAD?style=for-the-badge&logo=typst&logoColor=white)](https://typst.app/)
@@ -12,14 +12,14 @@ An engineering-focused typesetting system maintaining visual parity between trad
 ---
 
 > **Overview**
-> This repository houses the source code and automated build pipeline for my professional resumes. It utilizes GitHub Actions to ensure fresh, pixel-perfect PDF and PNG outputs are always generated from source, managed efficiently to prevent repository bloat.
+> This repository contains the source and build pipeline for my resumes. PDF and PNG outputs are automatically generated using GitHub Actions to stay in sync with the latest changes.
 
-## 📥 Artifact Gallery
+## 📥 Resume Versions
 
 _Click on a preview image to view the high-resolution PDF directly._
 
 | Variant                                 |                                                                             Preview                                                                             |                                                                                                                                                                                                               Downloads                                                                                                                                                                                                                |
-| :-------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| :-------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 | **Standard Edition**<br/>_(LaTeX)_      |                   [<img src="resume.png" width="300" alt="Standard Resume" style="border: 1px solid #ddd; border-radius: 4px;"/>](resume.pdf)                   |                [![PDF](https://img.shields.io/badge/PDF-Download-blue?style=flat-square&logo=adobeacrobatreader)](https://media.githubusercontent.com/media/ajmalbuv/resume/refs/heads/master/resume.pdf?download=1)<br/><br/>[![PNG](https://img.shields.io/badge/PNG-Download-green?style=flat-square&logo=image)](https://media.githubusercontent.com/media/ajmalbuv/resume/refs/heads/master/resume.png?download=1)                |
 | **No Image Edition**<br/>_(LaTeX)_      |          [<img src="resume-no-image.png" width="300" alt="No Image Resume" style="border: 1px solid #ddd; border-radius: 4px;"/>](resume-no-image.pdf)          |       [![PDF](https://img.shields.io/badge/PDF-Download-blue?style=flat-square&logo=adobeacrobatreader)](https://media.githubusercontent.com/media/ajmalbuv/resume/refs/heads/master/resume-no-image.pdf?download=1)<br/><br/>[![PNG](https://img.shields.io/badge/PNG-Download-green?style=flat-square&logo=image)](https://media.githubusercontent.com/media/ajmalbuv/resume/refs/heads/master/resume-no-image.png?download=1)       |
 | **Typst Edition**<br/>_(Experimental)_  |              [<img src="typst-resume.png" width="300" alt="Typst Resume" style="border: 1px solid #ddd; border-radius: 4px;"/>](typst-resume.pdf)               |          [![PDF](https://img.shields.io/badge/PDF-Download-blue?style=flat-square&logo=adobeacrobatreader)](https://media.githubusercontent.com/media/ajmalbuv/resume/refs/heads/master/typst-resume.pdf?download=1)<br/><br/>[![PNG](https://img.shields.io/badge/PNG-Download-green?style=flat-square&logo=image)](https://media.githubusercontent.com/media/ajmalbuv/resume/refs/heads/master/typst-resume.png?download=1)          |
