@@ -105,7 +105,7 @@
   if photo != none {
     grid(
       columns: (auto, 1fr),
-      column-gutter: 35pt,
+      column-gutter: 15pt,
       align: (left + horizon, center + horizon),
       box(
         stroke: white + 0.4pt,
@@ -115,7 +115,7 @@
       [
         #set text(font: header-font)
         #name_display
-        #v(-10pt)
+        #v(-2pt)
         #set text(size: 10pt, font: body-font)
         #contact_block
       ],

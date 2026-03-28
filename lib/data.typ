@@ -79,7 +79,7 @@
 // --- Skills ---
 #let skills = (
   "Full Stack Development": [Python, Django, JavaScript, React.js, Node.js, REST APIs],
-  "Mobile & UI Development": [Flutter, Dart, HTML5, CSS3, React, Angular],
+  "Mobile & UI Development": [Flutter, Dart, HTML5, NextJs, React, Angular],
   "Databases & Cloud": [PostgreSQL, MongoDB, Firebase, Oracle Cloud],
   "DevOps & Deployment": [Docker, Git, Vercel, Ubuntu VPS, CI/CD Pipelines],
   "Testing & Debugging": [Postman, Crashlytics, Quality Assurance, UI Testing],
