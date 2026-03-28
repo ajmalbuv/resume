@@ -36,12 +36,12 @@ _Click on a preview image to view the high-resolution PDF directly._
 ### Compilation Commands
 
 1. **LaTeX Configuration** _(Requires TeX Live)_:
-   ```powershell
-   latexmk -pdf resume.tex
+   ``` shell
+   latexmk -pdf resume.tex 
    ```
 2. **Typst Configuration**:
-   ```powershell
-   typst compile typst-resume.typ
+   ``` shell
+   typst compile --font-path fonts typst-resume.typ
    ```
 
 ### 📥 Accessing Latest Builds
