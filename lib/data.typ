@@ -32,19 +32,6 @@
 // --- Experience ---
 #let experience = (
   (
-    company: "WIMD Technologies Pvt Ltd",
-    location: "Bengaluru, Karnataka",
-    role: "Software Engineer Intern",
-    date: "May 2024 -- June 2024",
-    items: (
-      [Completed a ten-day internship at *WIMD Technologies Pvt Ltd*, gaining hands-on experience with industry-standard tools and real-world development workflows.],
-      [*API Development:* Designed and implemented RESTful APIs using Node.js with JWT authentication and role-based access control to ensure secure data exchange.],
-      [*Database Optimization:* Assisted in designing and indexing MongoDB databases, improving query performance and data retrieval efficiency.],
-      [*API Testing & Debugging:* Automated and executed API tests using Postman, identifying and resolving issues across CRUD operations.],
-      [*Collaborative Development:* Engaged in code reviews and debugging, enhancing system stability and API/database integration.],
-    ),
-  ),
-  (
     company: "ETAYA INNOVATIONS Pvt Ltd",
     location: "Bengaluru, Karnataka",
     role: "Flutter Developer",
@@ -56,6 +43,19 @@
       [*Performance Optimization:* Improved app efficiency by optimizing widget rebuilds, implementing lazy loading, and reducing API call overhead, resulting in smoother UI interactions and faster load times.],
       [*Testing and Debugging:* Conducted automated and manual testing using Flutter's testing framework and Firebase Crashlytics to identify and resolve UI inconsistencies, crashes, and performance bottlenecks.],
       [*Agile Development and Collaboration:* Worked in an Agile environment, participating in sprint planning, peer code reviews, and cross-functional team collaborations to deliver feature-rich applications on time.],
+    ),
+  ),
+  (
+    company: "WIMD Technologies Pvt Ltd",
+    location: "Bengaluru, Karnataka",
+    role: "Software Engineer Intern",
+    date: "May 2024 -- June 2024",
+    items: (
+      [Completed a ten-day internship at *WIMD Technologies Pvt Ltd*, gaining hands-on experience with industry-standard tools and real-world development workflows.],
+      [*API Development:* Designed and implemented RESTful APIs using Node.js with JWT authentication and role-based access control to ensure secure data exchange.],
+      [*Database Optimization:* Assisted in designing and indexing MongoDB databases, improving query performance and data retrieval efficiency.],
+      [*API Testing & Debugging:* Automated and executed API tests using Postman, identifying and resolving issues across CRUD operations.],
+      [*Collaborative Development:* Engaged in code reviews and debugging, enhancing system stability and API/database integration.],
     ),
   ),
 )

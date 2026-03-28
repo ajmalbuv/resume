@@ -18,7 +18,7 @@
   set document(title: personal.at("name", default: "Resume"), author: personal.at("name", default: ""))
   set page(
     paper: "a4",
-    margin: (x: 1.25cm, top: 0.7cm, bottom: 0.9cm),
+    margin: 1.25cm,
   )
   set text(font: body-font, size: 11pt, fill: accent-color, fallback: true)
   set par(justify: true, leading: 0.54em)
@@ -89,7 +89,7 @@
       if items.len() > 0 { items.push([|]) }
       items.push(contact-item("github", "https://" + personal.github, personal.github))
     }
-    stack(dir: ltr, spacing: 5pt, ..items)
+    stack(dir: ltr, spacing: 2pt, ..items)
   }
 
   let name_display = {
@@ -104,8 +104,7 @@
 
   if photo != none {
     grid(
-      columns: (auto, 1fr),
-      column-gutter: 15pt,
+      columns: (15%, 85%),
       align: (left + horizon, center + horizon),
       box(
         stroke: white + 0.4pt,
@@ -116,7 +115,7 @@
         #set text(font: header-font)
         #name_display
         #v(-2pt)
-        #set text(size: 10pt, font: body-font)
+        #set text(size: 9pt, font: body-font)
         #contact_block
       ],
     )
@@ -125,12 +124,12 @@
       #set text(font: header-font)
       #name_display
       #v(-10pt)
-      #set text(size: 10pt, font: body-font)
+      #set text(size: 9pt, font: body-font)
       #contact_block
     ]
   }
 
-  v(2pt)
+  v(-2pt)
 
   if summary != none and summary != "" {
     section("Summary")
@@ -140,18 +139,18 @@
     ]
   }
 
-  if education != none and education.len() > 0 {
-    section("Education")
-    for edu in education {
-      subheading(edu.school, edu.at("location", default: ""), edu.degree, edu.date)
-    }
-  }
-
   if experience != none and experience.len() > 0 {
     section("Experience")
     for exp in experience {
       subheading(exp.company, exp.at("location", default: ""), exp.role, exp.date)
       list_items(exp.at("items", default: ()))
+    }
+  }
+
+  if education != none and education.len() > 0 {
+    section("Education")
+    for edu in education {
+      subheading(edu.school, edu.at("location", default: ""), edu.degree, edu.date)
     }
   }
 
