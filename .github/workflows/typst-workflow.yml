@@ -75,7 +75,7 @@ jobs:
             
             pdf="${file%.typ}.pdf"
             echo "Compiling $file..."
-            typst compile "$file" "$pdf"
+            typst compile --font-path fonts "$file" "$pdf"
           done
 
       - name: Convert to PNG

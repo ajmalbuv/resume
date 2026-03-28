@@ -2,7 +2,7 @@
 #import "lib/contact.typ": contact-item
 
 // --- Configuration ---
-#let font-body = ("Helvetica", "Arial", "Roboto")
+#let font-body = "Inter 18pt"
 #let font-header = "Montserrat"
 #let size-name = 20pt
 #let size-section = 11pt
