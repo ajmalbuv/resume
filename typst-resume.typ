@@ -52,13 +52,18 @@
 
 #let header(photo) = {
   grid(
-    columns: (auto, 1fr),
-    column-gutter: 3.5pt,
-    image(photo, width: 45pt, height: 45pt, fit: "cover"),
-    align(center + horizon)[
+    columns: (15%, 1fr),
+    column-gutter: 0pt,
+    align: (left + horizon, center + horizon),
+    box(
+      stroke: white + 0.4pt,
+      inset: 3pt,
+      image(photo, width: 84%),
+    ),
+    [
       #set text(font: font-header)
-      #link("https://ajmalbuv.github.io")[
-        #text(size: size-name, weight: "bold")[#smallcaps("Ajmal Basheer")]
+      #link("https://ajmalbuv.pages.dev")[
+        #text(size: size-name, weight: "bold")[#smallcaps("AJMAL BASHEER")]
       ]
       #v(-10pt)
       #set text(size: size-small, font: font-body)
