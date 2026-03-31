@@ -9,6 +9,6 @@
   projects: projects,
   skills: skills,
   photo: image("photo.jpg", width: 2.0cm),
-  body-font: "Inter 18pt",
+  body-font: "Roboto",
   header-font: "Montserrat",
 )
