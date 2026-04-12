@@ -5,7 +5,9 @@
 Clean, version-controlled resumes built with LaTeX and Typst.
 
 [![LaTeX](https://img.shields.io/badge/LaTeX-47A141?style=for-the-badge&logo=latex&logoColor=white)](https://www.latex-project.org/)
+[![LaTeX Compilation](https://github.com/ajmalbuv/resume/actions/workflows/tex-workflow.yml/badge.svg)](https://github.com/ajmalbuv/resume/actions/workflows/tex-workflow.yml)
 [![Typst](https://img.shields.io/badge/Typst-239DAD?style=for-the-badge&logo=typst&logoColor=white)](https://typst.app/)
+[![Typst Compilation](https://github.com/ajmalbuv/resume/actions/workflows/typst-workflow.yml/badge.svg)](https://github.com/ajmalbuv/resume/actions/workflows/typst-workflow.yml)
 
 </div>
 
@@ -36,11 +38,11 @@ _Click on a preview image to view the high-resolution PDF directly._
 ### Compilation Commands
 
 1. **LaTeX Configuration** _(Requires TeX Live)_:
-   ``` shell
-   latexmk -pdf resume.tex 
+   ```shell
+   latexmk -pdf resume.tex
    ```
 2. **Typst Configuration**:
-   ``` shell
+   ```shell
    typst compile --font-path fonts typst-resume.typ
    ```
 
