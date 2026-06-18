@@ -8,6 +8,6 @@
   experience: experience,
   projects: projects,
   skills: skills,
-  body-font: "Inter 18pt",
+  body-font: "Roboto",
   header-font: "Montserrat",
 )
