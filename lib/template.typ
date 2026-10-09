@@ -18,27 +18,27 @@
   let size-margin = (x: 1.15cm, top: 0.75cm, bottom: 0.75cm)
   let size-indent = 0.35cm
   let stroke-width = 0.5pt
-
+  
   // Typography
-  let font-body = 10pt
-  let font-item = 9.2pt
-  let font-heading = 10.5pt
-  let font-name = if photo == none { 26pt } else { 23pt }
-  let font-contact = if photo == none { 9.5pt } else { 8.8pt }
-
+  let font-body = 11pt
+  let font-item = 10pt
+  let font-heading = 11pt
+  let font-name = if photo == none { 30pt } else { 25pt }
+  let font-contact = if photo == none { 10.5pt } else { 9.5pt }
+  
   // Spacing
-  let space-leading = 0.46em
-  let space-row-gutter = 2pt
-  let space-list = 2.8pt
+  let space-leading = 0.54em
+  let space-row-gutter = 4pt
+  let space-list = 5pt
   let space-contact-stack = 2pt
-  let space-project-stack = 2.5pt
-  let space-skills-stack = 2.5pt
-
+  let space-project-stack = 3pt
+  let space-skills-stack = 4pt
+  
   // Heading Specific
-  let head-space-top = 2pt
+  let head-space-top = 4pt
   let head-space-bottom = -8pt
-  let head-space-after-line = 1.5pt
-
+  let head-space-after-line = 2pt
+  
   // --- Page Setup ---
   set document(title: personal.at("name", default: "Resume"), author: personal.at("name", default: ""))
   set page(
@@ -47,20 +47,20 @@
   )
   set text(font: body-font, size: font-body, fill: accent-color, fallback: true)
   set par(justify: true, leading: space-leading)
-
+  
   // --- Styles ---
-  show heading.where(level: 1): it => block(above: 7.5pt, below: 4pt)[
-    #set text(size: font-heading, weight: "bold")
-    #v(head-space-top)
-    #smallcaps(it.body)
-    #v(head-space-bottom)
-    #line(length: 100%, stroke: stroke-width)
-    #v(head-space-after-line)
-  ]
-
+  show heading.where(level: 1): it => {
+    set text(size: font-heading, weight: "bold")
+    v(head-space-top)
+    smallcaps(it.body)
+    v(head-space-bottom)
+    line(length: 100%, stroke: stroke-width)
+    v(head-space-after-line)
+  }
+  
   // --- Helper Functions ---
   let section(title) = heading(level: 1, title)
-
+  
   let subheading(title, location, subtitle, date) = {
     grid(
       columns: (1fr, auto),
@@ -70,7 +70,7 @@
       align(right, text(style: "italic", size: font-item)[#location]),
     )
   }
-
+  
   let project_item(title, tech, date, url: none) = {
     grid(
       columns: (1fr, auto),
@@ -87,7 +87,7 @@
       align(right, text(weight: "bold", size: font-item)[#date]),
     )
   }
-
+  
   let list_items(bodies) = {
     if bodies != none and bodies.len() > 0 {
       set list(indent: size-indent, marker: [–], spacing: space-list)
@@ -96,7 +96,7 @@
       }
     }
   }
-
+  
   // --- Header ---
   let contact_block = {
     let items = ()
@@ -117,7 +117,7 @@
     }
     stack(dir: ltr, spacing: space-contact-stack, ..items)
   }
-
+  
   let name_display = {
     let name_text = personal.at("name", default: "YOUR NAME")
     let website = personal.at("website", default: none)
@@ -127,7 +127,7 @@
       text(size: font-name, weight: "bold")[#smallcaps(name_text)]
     }
   }
-
+  
   if photo != none {
     grid(
       columns: (15%, 85%),
@@ -154,9 +154,9 @@
       #contact_block
     ]
   }
-
+  
   v(-2pt)
-
+  
   if summary != none and summary != "" {
     section("Summary")
     block(inset: (left: size-indent))[
@@ -164,7 +164,7 @@
       #summary
     ]
   }
-
+  
   if experience != none and experience.len() > 0 {
     section("Experience")
     for exp in experience {
@@ -172,14 +172,14 @@
       list_items(exp.at("items", default: ()))
     }
   }
-
+  
   if education != none and education.len() > 0 {
     section("Education")
     for edu in education {
       subheading(edu.school, edu.at("location", default: ""), edu.degree, edu.date)
     }
   }
-
+  
   if projects != none and projects.len() > 0 {
     section("Projects")
     for proj in projects {
@@ -187,7 +187,7 @@
       list_items(proj.at("items", default: ()))
     }
   }
-
+  
   if skills != none and skills.pairs().len() > 0 {
     section("Skills & Competencies")
     block(inset: (left: size-indent))[

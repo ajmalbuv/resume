@@ -6,7 +6,7 @@ This repository contains the source files for Ajmal Basheer's personal resume. I
 
 ### Core Technologies
 
-- **Typst (Primary / Authoritative)**: Pinned to `0.15.1`. All resume variants and content are managed modularly in Typst.
+- **Typst (Primary)**: Pinned to `0.15.1`. All resume variants and content are managed modularly in Typst.
 - **LaTeX (Deprecated / Legacy)**: Source files (`resume.tex`, `resume-no-image.tex`) are preserved for historical reference; automated CI compilation is retired.
 - **GitHub Actions**: Automated CI/CD for compiling Typst sources and generating native 300 DPI PNG previews without external poppler dependencies.
 - **Git LFS**: Used to manage binary build artifacts (PDFs and PNGs) without bloating the repository history.
