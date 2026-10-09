@@ -19,8 +19,8 @@ This repository contains the source files for Ajmal Basheer's personal resume. I
   - `template.typ`: Resume layout template and typesetting rules.
   - `contact.typ`: Header and contact item formatting.
   - `icons.typ`: Self-contained 24x24 SVG icons.
+  - `photo.jpeg`: Profile image used in resumes (tracked via Git LFS).
 - `fonts/`: Bundled Roboto and Montserrat variable fonts.
-- `photo.jpeg`: Profile image used in resumes (tracked via Git LFS).
 - `resume.typ` / `resume-no-image.typ`: Active resume variants.
 - `latex-resume.tex` / `latex-resume-no-image.tex`: Archived legacy LaTeX source files.
 
