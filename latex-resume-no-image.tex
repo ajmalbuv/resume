@@ -1,7 +1,7 @@
 % =========================================================================
 % [DEPRECATED / ARCHIVED]
 % This LaTeX resume source is deprecated in favor of Typst.
-% The authoritative, active version is typst-resume.typ / typst-resume-no-image.typ.
+% The authoritative, active version is resume.typ / resume-no-image.typ.
 % Automated CI compilation for LaTeX has been decommissioned.
 % Kept for historical reference only.
 % =========================================================================
@@ -19,9 +19,8 @@
 \usepackage{multicol}
 \usepackage{graphicx}
 \usepackage[export]{adjustbox}
-\usepackage[sfdefault]{roboto}
+\usepackage[scaled]{helvet}\renewcommand{\familydefault}{\sfdefault}
 \usepackage[hidelinks]{hyperref}
-\usepackage{montserrat}
 
 
 \setlength{\multicolsep}{3.0pt}
@@ -68,7 +67,11 @@
 		\end{tabular*}\vspace{-7pt}
 }
 
-\newcommand{\resumeProjectHeading}[2]{\item\begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}\small#1 & \textbf{\small #2} \\\end{tabular*}\vspace{-7pt}
+\newcommand{\resumeProjectHeading}[2]{
+		\item
+		\begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+			\small#1 & \textbf{\small #2} \\
+		\end{tabular*}\vspace{-7pt}
 }
 
 \newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
@@ -78,21 +81,15 @@
 
 \begin{document}
 
-\begin{minipage}[c]{0.15\textwidth}
-	{\color{white}\fbox{\includegraphics[width=0.84\textwidth]{photo.jpg}}}
-\end{minipage}
-\begin{minipage}[t]{0.84\textwidth}  % Adjusted width to fill space
-	\begin{center}
-		{\fontfamily{Montserrat-TOsF}\selectfont \textbf{\Huge \scshape \href{https://ajmalbuv.pages.dev}{AJMAL BASHEER}}} \\ \vspace{1pt}
-		\small{
-			\raisebox{-0.1\height}\faPhone\ \href{tel:+919496444520}{\underline{+91 9496444520}} $|$
-			\raisebox{-0.2\height}\faEnvelope\ \href{mailto:ajmalbuv@gmail.com}{\underline{ajmalbuv@gmail.com}} $|$
-			\raisebox{-0.2\height}\faLinkedin\ \href{https://linkedin.com/in/ajmalbuv}{\underline{linkedin.com/ajmalbuv}} $|$
-			\raisebox{-0.2\height}\faGithub\ \href{https://github.com/ajmalbuv}{\underline{github.com/ajmalbuv}}
-		}
-	\end{center}
-\end{minipage}
-
+\begin{center}
+	{\fontfamily{Montserrat-TOsF}\selectfont \textbf{\Huge \scshape \href{https://ajmalbuv.pages.dev}{AJMAL BASHEER}}} \\ \vspace{1pt}
+	\small{
+		\raisebox{-0.1\height}\faPhone\ \href{tel:+919496444520}{\underline{+91 9496444520}} $|$
+		\raisebox{-0.2\height}\faEnvelope\ \href{mailto:ajmalbuv@gmail.com}{\underline{ajmalbuv@gmail.com}} $|$
+		\raisebox{-0.2\height}\faLinkedin\ \href{https://linkedin.com/in/ajmalbuv}{\underline{linkedin.com/in/ajmalbuv}} $|$
+		\raisebox{-0.2\height}\faGithub\ \href{https://github.com/ajmalbuv}{\underline{github.com/ajmalbuv}}
+	}
+\end{center}
 
 \section{Summary}
 \begin{itemize}[leftmargin=0.15in, label={}]
@@ -129,10 +126,10 @@
 % \begin{itemize}[leftmargin=*,nosep]
 % 	\begin{multicols}{3}
 % 		\item Full Stack Development
-% 		\item System Optimization 
+% 		\item System Optimization
 % 		\item API Development
 % 		\item Cloud Deployment
-% 		\item Troubleshooting and Debugging
+% 		\item Troubleshooting \& Debugging
 % 		\item Quality Assurance and Testing
 % 	\end{multicols}
 % \end{itemize}
@@ -151,13 +148,13 @@
 \resumeItemListEnd
 \resumeSubheading
 {ETAYA INNOVATIONS Pvt Ltd}{Nov 2024 -- Present}
-{Flutter Developer}{Bengaluru, Karnataka}
+{Flutter Developer }{Bengaluru, Karnataka}
 \resumeItemListStart
 \resumeItem{Working as a full-time Flutter developer at \textbf{ETAYA INNOVATIONS Pvt Ltd}, developing and maintaining cross-platform mobile applications for Android and iOS using Flutter and Dart.}
 \resumeItem{\textbf{Flutter App Development:} Designed and built scalable, high-performance mobile applications, implementing clean architecture, provider-based state management, and custom UI components.}
 \resumeItem{\textbf{Backend Integration and API Handling:} Integrated RESTful APIs and Firebase services for real-time data synchronization, authentication, push notifications, and secure cloud storage.}
 \resumeItem{\textbf{Performance Optimization:} Improved app efficiency by optimizing widget rebuilds, implementing lazy loading, and reducing API call overhead, resulting in smoother UI interactions and faster load times.}
-\resumeItem{\textbf{Testing and Debugging:} Conducted automated and manual testing using Flutter’s testing framework and Firebase Crashlytics to identify and resolve UI inconsistencies, crashes, and performance bottlenecks.}
+\resumeItem{\textbf{Testing and Debugging:} Conducted automated and manual testing using Flutter's testing framework and Firebase Crashlytics to identify and resolve UI inconsistencies, crashes, and performance bottlenecks.}
 \resumeItem{\textbf{Agile Development and Collaboration:} Worked in an Agile environment, participating in sprint planning, peer code reviews, and cross-functional team collaborations to deliver feature-rich applications on time.}
 \resumeItemListEnd
 \resumeSubHeadingListEnd
@@ -178,21 +175,20 @@
 % \begin{itemize}[leftmargin=0.15in, label={}]
 % 	\small{\item{
 % 				\textbf{Programming Languages}{: Python, Java, JavaScript, SQL, C, PHP, Dart, R}\\
-% 				\textbf{Web Technologies}{: HTML5, CSS3, React.js, Node.js, Django, Flask, REST APIs, Flutter}\\
+% 				\textbf{Web Technologies}{: HTML5, CSS3, React.js, Node.js, Django, Flask, REST APIs}\\
 % 				\textbf{Databases \& Tools}{: PostgreSQL, MongoDB, Docker (containers), Git (version control), Oracle Cloud}\\
-% 				\textbf{Development Tools}{: VS Code, PyCharm, IntelliJ, Postman, Android Studio, Vercel}
+% 				\textbf{Development Tools}{: VS Code, PyCharm, IntelliJ, Postman, Android Studio}
 % 				}}
 % \end{itemize}
-
 
 \section{Skills \& Competencies}
 \begin{itemize}[leftmargin=0.15in, label={}, itemsep=0pt]
     \small{
         \item \textbf{Full Stack Development}: Python, Django, JavaScript, React.js, Node.js, REST APIs
-        \item \textbf{Mobile \& UI Development}: Flutter, Dart, HTML5, NextJs, React, Angular
+        \item \textbf{Mobile \& UI Development}: Flutter, Dart, HTML5, CSS3, React, Angular
         \item \textbf{Databases \& Cloud}: PostgreSQL, MongoDB, Firebase, Oracle Cloud
         \item \textbf{DevOps \& Deployment}: Docker, Git, Vercel, Ubuntu VPS, CI/CD Pipelines
-        \item \textbf{Testing \& Debugging}: Postman, Quality Assurance, UI Testing
+        \item \textbf{Testing \& Debugging}: Postman, Crashlytics, Quality Assurance, UI Testing
         \item \textbf{Performance \& Optimization}: API Optimization, Query Performance Tuning
     }
 \end{itemize}

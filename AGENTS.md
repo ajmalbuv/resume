@@ -21,8 +21,8 @@ This repository contains the source files for Ajmal Basheer's personal resume. I
   - `icons.typ`: Self-contained 24x24 SVG icons.
 - `fonts/`: Bundled Roboto and Montserrat variable fonts.
 - `photo.jpg`: Profile image used in resumes (tracked via Git LFS).
-- `typst-resume.typ` / `typst-resume-no-image.typ`: Active resume variants.
-- `resume.tex` / `resume-no-image.tex`: Archived legacy LaTeX source files.
+- `resume.typ` / `resume-no-image.typ`: Active resume variants.
+- `latex-resume.tex` / `latex-resume-no-image.tex`: Archived legacy LaTeX source files.
 
 ## Building and Usage
 
@@ -30,12 +30,12 @@ This repository contains the source files for Ajmal Basheer's personal resume. I
 
 - **Direct Typst CLI**:
   ```bash
-  typst compile --font-path fonts typst-resume.typ typst-resume.pdf
-  typst compile --font-path fonts --ppi 300 --pages 1 typst-resume.typ typst-resume.png
+  typst compile --font-path fonts resume.typ resume.pdf
+  typst compile --font-path fonts --ppi 300 --pages 1 resume.typ resume.png
   ```
 - **Live Preview / Watch Mode**:
   ```bash
-  typst watch --font-path fonts typst-resume.typ typst-resume.pdf
+  typst watch --font-path fonts resume.typ resume.pdf
   ```
 
 ### CI/CD Pipeline Logic
@@ -49,7 +49,7 @@ The GitHub Actions workflow (`typst-workflow.yml`) is optimized for **Surgical A
 5. **Deletion Safety**: If a source file is removed, compilation gracefully skips it while keeping existing `.pdf` and `.png` artifacts preserved.
 6. **Concurrency Protection**: Uses concurrency groups (`typst-build-${{ github.ref }}`) to prevent racing commits and git push rejections.
 7. **PR Verification**: Compiles documents on pull requests to catch syntax errors without committing artifacts.
-8. **Binary Management**: Automatically commits generated `.pdf` and `.png` files back to `master` as Git LFS pointers with `[skip ci]`.
+8. **Binary Management**: Automatically commits generated `.pdf` and `.png` files back to `main` as Git LFS pointers with `[skip ci]`.
 
 ## Development Conventions
 
