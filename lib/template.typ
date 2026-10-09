@@ -15,29 +15,29 @@
   body,
 ) = {
   // --- Theme Configuration ---
-  let size-margin = 1.25cm
-  let size-indent = 0.38cm
+  let size-margin = (x: 1.15cm, top: 0.75cm, bottom: 0.75cm)
+  let size-indent = 0.35cm
   let stroke-width = 0.5pt
 
   // Typography
-  let font-body = 11pt
-  let font-item = 10pt
-  let font-heading = 11pt
-  let font-name = if photo == none { 30pt } else { 25pt }
-  let font-contact = if photo == none { 10.5pt } else { 9.5pt }
+  let font-body = 10pt
+  let font-item = 9.2pt
+  let font-heading = 10.5pt
+  let font-name = if photo == none { 26pt } else { 23pt }
+  let font-contact = if photo == none { 9.5pt } else { 8.8pt }
 
   // Spacing
-  let space-leading = 0.54em
-  let space-row-gutter = 4pt
-  let space-list = 5pt
+  let space-leading = 0.46em
+  let space-row-gutter = 2pt
+  let space-list = 2.8pt
   let space-contact-stack = 2pt
-  let space-project-stack = 3pt
-  let space-skills-stack = 4pt
+  let space-project-stack = 2.5pt
+  let space-skills-stack = 2.5pt
 
   // Heading Specific
-  let head-space-top = 4pt
+  let head-space-top = 2pt
   let head-space-bottom = -8pt
-  let head-space-after-line = 2pt
+  let head-space-after-line = 1.5pt
 
   // --- Page Setup ---
   set document(title: personal.at("name", default: "Resume"), author: personal.at("name", default: ""))
@@ -49,14 +49,14 @@
   set par(justify: true, leading: space-leading)
 
   // --- Styles ---
-  show heading.where(level: 1): it => {
-    set text(size: font-heading, weight: "bold")
-    v(head-space-top)
-    smallcaps(it.body)
-    v(head-space-bottom)
-    line(length: 100%, stroke: stroke-width)
-    v(head-space-after-line)
-  }
+  show heading.where(level: 1): it => block(above: 7.5pt, below: 4pt)[
+    #set text(size: font-heading, weight: "bold")
+    #v(head-space-top)
+    #smallcaps(it.body)
+    #v(head-space-bottom)
+    #line(length: 100%, stroke: stroke-width)
+    #v(head-space-after-line)
+  ]
 
   // --- Helper Functions ---
   let section(title) = heading(level: 1, title)
