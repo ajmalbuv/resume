@@ -20,7 +20,7 @@ This repository contains the source files for Ajmal Basheer's personal resume. I
   - `contact.typ`: Header and contact item formatting.
   - `icons.typ`: Self-contained 24x24 SVG icons.
 - `fonts/`: Bundled Roboto and Montserrat variable fonts.
-- `photo.jpg`: Profile image used in resumes (tracked via Git LFS).
+- `photo.jpeg`: Profile image used in resumes (tracked via Git LFS).
 - `resume.typ` / `resume-no-image.typ`: Active resume variants.
 - `latex-resume.tex` / `latex-resume-no-image.tex`: Archived legacy LaTeX source files.
 
@@ -45,7 +45,7 @@ The GitHub Actions workflow (`typst-workflow.yml`) is optimized for **Surgical A
 1. **Standardized Engine**: Pins `typst-community/setup-typst` to `0.15.1` for permanent reproducibility.
 2. **Native Rendering**: Generates 300 DPI PNG previews directly via `typst compile --ppi 300 --pages 1`, eliminating external C-library dependencies (`poppler-utils`).
 3. **Incremental Builds**: By default, only the specific `.typ` files modified in a commit are recompiled.
-4. **Global Dependencies**: Changes to shared assets (`photo.jpg` or `lib/**`) trigger a full rebuild of all root resumes.
+4. **Global Dependencies**: Changes to shared assets (`photo.jpeg` or `lib/**`) trigger a full rebuild of all root resumes.
 5. **Deletion Safety**: If a source file is removed, compilation gracefully skips it while keeping existing `.pdf` and `.png` artifacts preserved.
 6. **Concurrency Protection**: Uses concurrency groups (`typst-build-${{ github.ref }}`) to prevent racing commits and git push rejections.
 7. **PR Verification**: Compiles documents on pull requests to catch syntax errors without committing artifacts.

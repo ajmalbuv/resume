@@ -7,14 +7,12 @@ on:
     paths:
       - "**/*.typ"
       - "lib/**"
-      - "photo.jpg"
   pull_request:
     branches:
       - main
     paths:
       - "**/*.typ"
       - "lib/**"
-      - "photo.jpg"
   workflow_dispatch:
     inputs:
       rebuild_all:
@@ -52,16 +50,14 @@ jobs:
           files_yaml: |
             lib:
               - lib/**
-            photo:
-              - photo.jpg
             root:
               - "*.typ"
 
       - name: Determine files to compile
         id: files
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.rebuild_all }}" == "true" ]] || [[ "${{ steps.changed-files.outputs.lib_any_changed }}" == "true" ]] || [[ "${{ steps.changed-files.outputs.photo_any_changed }}" == "true" ]]; then
-            echo "Lib/Photo changed or manual full rebuild. Recompiling all root Typst files..."
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.rebuild_all }}" == "true" ]] || [[ "${{ steps.changed-files.outputs.lib_any_changed }}" == "true" ]]; then
+            echo "Lib changed or manual full rebuild. Recompiling all root Typst files..."
             FILES=$(find . -maxdepth 1 -name "*.typ" | sed 's|^./||' | xargs)
           else
             echo "Source files changed. Compiling only changed files..."

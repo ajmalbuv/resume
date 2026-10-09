@@ -8,7 +8,7 @@
   experience: experience,
   projects: projects,
   skills: skills,
-  photo: image("photo.jpg", width: 2.0cm),
+  photo: image("lib/photo.jpeg", width: 2.0cm),
   body-font: "Roboto",
   header-font: "Montserrat",
 )
