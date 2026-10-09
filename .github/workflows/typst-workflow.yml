@@ -1,6 +1,14 @@
 name: Typst Compilation
+
 on:
   push:
+    branches:
+      - master
+    paths:
+      - "**/*.typ"
+      - "lib/**"
+      - "photo.jpg"
+  pull_request:
     branches:
       - master
     paths:
@@ -15,6 +23,10 @@ on:
         type: boolean
         default: false
 
+concurrency:
+  group: typst-build-${{ github.ref }}
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -22,13 +34,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - name: Checkout repository
+        uses: actions/checkout@v7
         with:
-          fetch-depth: 2
+          fetch-depth: 0
           lfs: true
 
-      - name: Setup Typst
+      - name: Setup Typst (Standardized Version)
         uses: typst-community/setup-typst@v5
+        with:
+          typst-version: "0.15.1"
 
       - name: Get changed files
         id: changed-files
@@ -58,37 +73,49 @@ jobs:
             FILES=$(find . -maxdepth 1 -name "*.typ" | sed 's|^./||' | xargs)
           fi
 
-          if [[ -z "$FILES" ]]; then
+          # Filter out non-existent/deleted files and non-typ files
+          VALID_FILES=""
+          for f in $FILES; do
+            if [[ -f "$f" && "$f" == *.typ && "$f" != lib/* ]]; then
+              VALID_FILES="$VALID_FILES $f"
+            fi
+          done
+          VALID_FILES=$(echo "$VALID_FILES" | xargs)
+
+          if [[ -z "$VALID_FILES" ]]; then
             echo "any=false" >> $GITHUB_OUTPUT
           else
             echo "any=true" >> $GITHUB_OUTPUT
-            echo "all=$FILES" >> $GITHUB_OUTPUT
+            echo "all=$VALID_FILES" >> $GITHUB_OUTPUT
+            echo "Files to compile: $VALID_FILES"
           fi
 
-      - name: Compile Typst files
+      - name: Compile Typst files (Native PDF & 300 DPI PNG)
         if: steps.files.outputs.any == 'true'
         run: |
           for file in ${{ steps.files.outputs.all }}; do
+            [[ ! -f "$file" ]] && continue
             [[ "$file" != *.typ ]] && continue
             [[ "$file" == lib/* ]] && continue
             [[ "$file" == ./* ]] && file="${file#./}"
             
-            pdf="${file%.typ}.pdf"
-            echo "Compiling $file..."
+            base="${file%.typ}"
+            pdf="${base}.pdf"
+            png="${base}.png"
+            
+            echo "Compiling $file -> $pdf..."
             typst compile --font-path fonts "$file" "$pdf"
+
+            echo "Rendering $file -> $png (native 300 DPI)..."
+            typst compile --font-path fonts --ppi 300 --pages 1 "$file" "$png"
           done
 
-      - name: Convert to PNG
-        if: steps.files.outputs.any == 'true'
-        uses: ./.github/actions/pdf-to-png
-        with:
-          files: ${{ steps.files.outputs.all }}
-
       - name: Commit changes
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: "Format and compile Typst files"
-          commit_user_name: GitHub Actions
-          commit_user_email: actions@github.com
-          commit_author: Author <actions@github.com>
+          commit_message: "Format and compile Typst files [skip ci]"
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           file_pattern: "*.pdf *.png"

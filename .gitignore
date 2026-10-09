@@ -1,5 +1,27 @@
-*.log
+# TeX / LaTeX build artifacts
 *.aux
-*.out
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
 *.gz
+*.log
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex(busy)
+*.synctex.gz
+*.toc
+*.xdv
+
+# Typst cache & temporary outputs
+.typst/
+*.typst-cache
+
+# Editor & OS files
 .vscode/
+.idea/
+.DS_Store
+Thumbs.db
