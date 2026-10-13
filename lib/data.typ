@@ -11,7 +11,7 @@
 )
 
 // --- Summary ---
-#let summary = [Full-stack developer with expertise in Python, Django, PostgreSQL, and Flutter. Experienced in designing and deploying scalable applications with optimized performance and security. Proven ability to enhance system efficiency, streamline development workflows, and contribute to high-availability cloud deployments. Passionate about delivering high-quality software solutions in dynamic IT environments.]
+#let summary = [Flutter and full-stack developer with 1+ year of professional experience shipping cross-platform apps (Flutter, Firebase, REST APIs) and building Node/PostgreSQL SaaS backends. Focused on performance, clean architecture and production-ready deployments.]
 
 // --- Education ---
 #let education = (
