@@ -79,10 +79,10 @@ jobs:
           VALID_FILES=$(echo "$VALID_FILES" | xargs)
 
           if [[ -z "$VALID_FILES" ]]; then
-            echo "any=false" >> $GITHUB_OUTPUT
+            echo "any=false" >> "$GITHUB_OUTPUT"
           else
-            echo "any=true" >> $GITHUB_OUTPUT
-            echo "all=$VALID_FILES" >> $GITHUB_OUTPUT
+            echo "any=true" >> "$GITHUB_OUTPUT"
+            echo "all=$VALID_FILES" >> "$GITHUB_OUTPUT"
             echo "Files to compile: $VALID_FILES"
           fi
 
