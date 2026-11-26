@@ -19,7 +19,7 @@
     school: "Krupanidhi Degree College",
     location: "Bengaluru, Karnataka",
     degree: "Bachelor of Computer Applications",
-    date: "Aug. 2021 -- July 2024",
+    date: "Aug 2021 -- July 2024",
   ),
   (
     school: "MIC Higher Secondary School",
@@ -37,7 +37,7 @@
     role: "Flutter Developer",
     date: "Nov 2024 -- Present",
     items: (
-      [Working as a full-time Flutter developer at *ETAYA INNOVATIONS Pvt Ltd*, developing and maintaining cross-platform mobile applications for Android and iOS using Flutter and Dart.],
+      [*Cross-Platform App Delivery:* Developing and maintaining production mobile applications for Android and iOS using Flutter and Dart.],
       [*Flutter App Development:* Designed and built scalable, high-performance mobile applications, implementing clean architecture, provider-based state management, and custom UI components.],
       [*Backend Integration and API Handling:* Integrated RESTful APIs and Firebase services for real-time data synchronization, authentication, push notifications, and secure cloud storage.],
       [*Performance Optimization:* Improved app efficiency by optimizing widget rebuilds, implementing lazy loading, and reducing API call overhead, resulting in smoother UI interactions and faster load times.],
@@ -51,7 +51,7 @@
     role: "Software Engineer Intern",
     date: "May 2024 -- June 2024",
     items: (
-      [Completed a ten-day internship at *WIMD Technologies Pvt Ltd*, gaining hands-on experience with industry-standard tools and real-world development workflows.],
+      [*Backend Engineering Internship:* Gained hands-on experience with industry-standard backend tools and real-world software development workflows.],
       [*API Development:* Designed and implemented RESTful APIs using Node.js with JWT authentication and role-based access control to ensure secure data exchange.],
       [*Database Optimization:* Assisted in designing and indexing MongoDB databases, improving query performance and data retrieval efficiency.],
       [*API Testing & Debugging:* Automated and executed API tests using Postman, identifying and resolving issues across CRUD operations.],
@@ -79,7 +79,7 @@
 // --- Skills ---
 #let skills = (
   "Full Stack Development": [Python, Django, JavaScript, React.js, Node.js, REST APIs],
-  "Mobile & UI Development": [Flutter, Dart, HTML5, NextJs, React, Angular],
+  "Mobile & UI Development": [Flutter, Dart, HTML5, Next.js, React, Angular],
   "Databases & Cloud": [PostgreSQL, MongoDB, Firebase, Oracle Cloud],
   "DevOps & Deployment": [Docker, Git, Vercel, Ubuntu VPS, CI/CD Pipelines],
   "Testing & Debugging": [Postman, Crashlytics, Quality Assurance, UI Testing],
