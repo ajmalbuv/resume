@@ -85,3 +85,23 @@
   "Testing & Debugging": [Postman, Crashlytics, Quality Assurance, UI Testing],
   "Performance & Optimization": [API Optimization, Query Performance Tuning],
 )
+
+// --- Languages ---
+#let languages = (
+  "English",
+  "Malayalam",
+  "Hindi",
+)
+
+// --- Personal / Identity Details (Optional) ---
+// Uncomment or add any custom fields (e.g., DOB, Driving License, Passport, Nationality, Visa).
+// You can also add `dob`, `license`, `passport`, `nationality`, or `visa` directly inside `personal` above.
+// Leave empty `()` to hide this section automatically.
+#let details = (
+  // (label: "Date of Birth", value: "DD MMM YYYY", icon: "calendar"),
+  // (label: "Nationality", value: "Indian", icon: "globe"),
+  // (label: "Driving License", value: "KL-XX-XXXXXXXXXXX", icon: "license"),
+  // (label: "Passport No.", value: "X0000000", icon: "passport"),
+  // (label: "Visa Status", value: "Employment Visa", icon: "id"),
+)
+
