@@ -211,7 +211,7 @@
 
   v(2pt)
 
-  if summary != none and summary != "" {
+  if summary != none and summary != "" and summary != [] {
     section("Summary")
     block(inset: (left: size-indent))[
       #set text(size: font-item)
@@ -222,7 +222,7 @@
   if experience != none and experience.len() > 0 {
     section("Experience")
     for exp in experience {
-      subheading(exp.company, exp.at("location", default: ""), exp.role, exp.date)
+      subheading(exp.company, exp.at("location", default: ""), exp.role, exp.at("date", default: ""))
       list_items(exp.at("items", default: ()))
     }
   }
@@ -230,14 +230,19 @@
   if education != none and education.len() > 0 {
     section("Education")
     for edu in education {
-      subheading(edu.school, edu.at("location", default: ""), edu.degree, edu.date)
+      subheading(edu.school, edu.at("location", default: ""), edu.degree, edu.at("date", default: ""))
     }
   }
 
   if projects != none and projects.len() > 0 {
     section("Projects")
     for proj in projects {
-      project_item(proj.title, proj.at("tech", default: none), proj.date, url: proj.at("url", default: none))
+      project_item(
+        proj.title,
+        proj.at("tech", default: none),
+        proj.at("date", default: ""),
+        url: proj.at("url", default: none),
+      )
       list_items(proj.at("items", default: ()))
     }
   }

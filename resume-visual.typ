@@ -1,9 +1,9 @@
 // ============================================================================
-// Modern Editorial Sidebar Resume (Single-File Edition)
+// Visual Editorial Sidebar Resume (Single-File Edition)
 // Reuses shared content from `lib/data.typ` and SVG icons from `lib/icons.typ`.
 // Compile:
-//   typst compile --font-path fonts resume-sidebar.typ resume-sidebar.pdf
-//   typst compile --font-path fonts --ppi 300 --pages 1 resume-sidebar.typ resume-sidebar.png
+//   typst compile --font-path fonts resume-visual.typ resume-visual.pdf
+//   typst compile --font-path fonts --ppi 300 --pages 1 resume-visual.typ resume-visual.png
 // ============================================================================
 
 #import "lib/data.typ": details, education, experience, languages, personal, projects, skills, summary
@@ -77,6 +77,11 @@
 
 #let format-date(d) = {
   if d == none { "" } else { str(d).replace("--", "–") }
+}
+
+#let ensure-https(u) = {
+  let s = str(u)
+  if s.starts-with("http://") or s.starts-with("https://") { s } else { "https://" + s }
 }
 
 #let clean-url-label(u) = {
@@ -215,6 +220,7 @@
   font: config.body-font,
   size: 8.1pt,
   fill: config.text-primary,
+  hyphenate: false,
   fallback: true,
 )
 #set par(justify: false, leading: 0.48em, spacing: 0.45em)
@@ -230,40 +236,44 @@
   let icon-size = if in-sidebar { 8.5pt } else { 9.5pt }
   let font-size = if in-sidebar { 9.8pt } else { 10.6pt }
 
-  v(if in-sidebar { 6.5pt } else { 7.5pt })
-  grid(
-    columns: if rule { (auto, 1fr) } else { (auto,) },
-    column-gutter: 6.5pt,
-    align: (left + horizon, left + horizon),
-    stack(
-      dir: ltr,
-      spacing: 5.5pt,
-      align(
-        horizon,
-        box(
-          width: badge-size,
-          height: badge-size,
-          radius: 3.5pt,
-          fill: config.accent-dark,
-          align(center + horizon, icon(icon-name, size: icon-size, baseline: 0pt, color: white)),
+  block(
+    width: 100%,
+    sticky: true,
+    above: if in-sidebar { 6.5pt } else { 7.5pt },
+    below: if in-sidebar { 4pt } else { 4.5pt },
+    grid(
+      columns: if rule { (auto, 1fr) } else { (auto,) },
+      column-gutter: 6.5pt,
+      align: (left + horizon, left + horizon),
+      stack(
+        dir: ltr,
+        spacing: 5.5pt,
+        align(
+          horizon,
+          box(
+            width: badge-size,
+            height: badge-size,
+            radius: 3.5pt,
+            fill: config.accent-dark,
+            align(center + horizon, icon(icon-name, size: icon-size, baseline: 0pt, color: white)),
+          ),
+        ),
+        align(
+          horizon,
+          text(
+            font: config.header-font,
+            size: font-size,
+            weight: "bold",
+            fill: config.accent-dark,
+            tracking: 0.2pt,
+          )[#title],
         ),
       ),
-      align(
-        horizon,
-        text(
-          font: config.header-font,
-          size: font-size,
-          weight: "bold",
-          fill: config.accent-dark,
-          tracking: 0.2pt,
-        )[#title],
-      ),
+      if rule {
+        line(length: 100%, stroke: 0.6pt + config.border-subtle)
+      },
     ),
-    if rule {
-      line(length: 100%, stroke: 0.6pt + config.border-subtle)
-    },
   )
-  v(if in-sidebar { 4pt } else { 4.5pt })
 }
 
 // Contact Row Item
@@ -412,7 +422,7 @@
                     )[#itm.title]
 
                     #if itm.at("url", default: none) != none and itm.url != "" [
-                      #link(itm.url)[
+                      #link(ensure-https(itm.url))[
                         #stack(
                           dir: ltr,
                           spacing: 3.5pt,
@@ -520,7 +530,7 @@
     #section-header("contact", "Contact", rule: true, in-sidebar: true)
     #let c-items = ()
     #if personal.at("phone", default: none) != none {
-      c-items.push(contact-row("phone", personal.phone, url: "tel:" + personal.phone))
+      c-items.push(contact-row("phone", personal.phone, url: "tel:" + str(personal.phone).replace(" ", "")))
     }
     #if personal.at("email", default: none) != none {
       c-items.push(contact-row("mail", personal.email, url: "mailto:" + personal.email))
@@ -532,18 +542,18 @@
       c-items.push(contact-row(
         "linkedin",
         clean-url-label(personal.linkedin),
-        url: "https://" + clean-url-label(personal.linkedin),
+        url: ensure-https(personal.linkedin),
       ))
     }
     #if personal.at("github", default: none) != none {
       c-items.push(contact-row(
         "github",
         clean-url-label(personal.github),
-        url: "https://" + clean-url-label(personal.github),
+        url: ensure-https(personal.github),
       ))
     }
     #if personal.at("website", default: none) != none {
-      c-items.push(contact-row("globe", clean-url-label(personal.website), url: personal.website))
+      c-items.push(contact-row("globe", clean-url-label(personal.website), url: ensure-https(personal.website)))
     }
     #stack(dir: ttb, spacing: 5pt, ..c-items)
 
@@ -627,7 +637,7 @@
             )),
         )
       ] else [
-        #par(leading: 0.62em, justify: false)[
+        #par(leading: 0.44em, justify: false)[
           #for (j, lang) in languages.enumerate() [
             #skill-pill(content-to-str(lang))#if j < languages.len() - 1 { h(3pt) }
           ]
@@ -641,7 +651,7 @@
 // 6. MAIN COLUMN CONTENT
 // ----------------------------------------------------------------------------
 #let render-about = {
-  if summary != none and summary != "" [
+  if summary != none and summary != "" and summary != [] [
     #section-header("user", "About Me", rule: true)
     #text(size: 8.1pt, fill: config.text-primary)[
       #set par(justify: true, leading: 0.48em)
