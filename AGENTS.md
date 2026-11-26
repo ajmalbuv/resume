@@ -15,13 +15,13 @@ This repository contains the source files for Ajmal Basheer's personal resume. I
 
 - `.github/workflows/typst-workflow.yml`: Hardened workflow for automated builds, PR verification, and artifact management.
 - `lib/`: Contains shared Typst libraries:
-  - `data.typ`: **Single source of truth** for resume data (experience, education, projects, skills).
-  - `template.typ`: Resume layout template and typesetting rules.
+  - `data.typ`: **Single source of truth** for resume data (experience, education, projects, skills, languages, optional personal details).
+  - `template.typ`: Classic single-column layout template used by `resume.typ` and `resume-no-image.typ`.
   - `contact.typ`: Header and contact item formatting.
   - `icons.typ`: Self-contained 24x24 SVG icons.
   - `photo.jpeg`: Profile image used in resumes (tracked via Git LFS).
 - `fonts/`: Bundled Roboto and Montserrat variable fonts.
-- `resume.typ` / `resume-no-image.typ`: Active resume variants.
+- `resume.typ` / `resume-no-image.typ` / `resume-visual.typ`: Active resume variants (`resume-visual.typ` is a self-contained single-file sidebar layout reusing `lib/data.typ` and `lib/icons.typ`).
 - `latex-resume.tex` / `latex-resume-no-image.tex`: Archived legacy LaTeX source files.
 
 ## Building and Usage
